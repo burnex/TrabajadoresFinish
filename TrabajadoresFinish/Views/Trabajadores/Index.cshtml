@@ -1,16 +1,14 @@
-﻿@model IEnumerable<TrabajadoresFinish.Models.Provincia>
+﻿@model IEnumerable<TrabajadoresFinish.Models.Trabajadores>
 @{
-    var Departamento = (TrabajadoresFinish.Models.Departamento)ViewBag.Departamento;
 
 }
 
 <div class="mail-box">
 
-    <h2>Provincias</h2>
-    <h4>Departamento: @Departamento.NombreDepartamento</h4>
+    <h2>Trabajadores</h2>
 
     <p>
-        <a asp-action="Create" asp-route-IdDepartamento="@Departamento.Id" class="btn btn-primary add-dialog-window">Nuevo Registro</a>
+        <a asp-action="Create" class="btn btn-primary add-dialog-window">Nuevo Registro</a>
     </p>
     <div class="table-responsive table-sm table-hover">
 
@@ -18,8 +16,27 @@
             <thead class="table-active">
                 <tr>
                     <th>
+                        Tipo Documento
+                    </th>
+                    <th>
+                        Numero Documento
+                    </th>
+                    <th>
+                        Nombres
+                    </th>
+                    <th>
+                        Sexo
+                    </th>
+                    <th>
+                        Departamento
+                    </th>
+                    <th>
                         Provincia
                     </th>
+                    <th>
+                        Distrito
+                    </th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -28,19 +45,36 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NombreProvincia)
+                            @Html.DisplayFor(modelItem => item.TipoDocumento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroDocumento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombres)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sexo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdDepartamento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdProvincia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdDistrito)
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning edit-dialog-window">Editar</a>
+                        </td>
+                        <td>
                             <a data-id="@item.Id" class="btn btn-danger delete-dialog-window">Eliminar</a>
-                            <a asp-controller="Distritos" asp-action="Index" asp-route-id="@item.Id" class="btn btn-info">Distritos</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <a asp-controller="Departamentos" asp-action="Index"  class="btn btn-dark">Regresar a lista</a>
-
     </div>
 </div>
 
@@ -85,7 +119,7 @@
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <h2 class="modal-title">Eliminar Departamento</h2>
+                <h2 class="modal-title">Eliminar Trabajador</h2>
             </div>
             <div class="modal-body">
                 <div class="text-center">
@@ -139,7 +173,7 @@
 
     <script>
         $("body").on("click", "a.delete-dialog-window", null, function (e) {
-        var htmlContent = '<br /><button type="button" id="btnNo" class="btn btn-danger" style="background-color:#da2213;color:white;" data-dismiss="modal" aria-hidden="true">No</button>&nbsp&nbsp<a href="@Url.Action("Delete", "Provincias")/' + $(this).data('id') + '" class="btn btn-default">Si</a>';
+        var htmlContent = '<br /><button type="button" id="btnNo" class="btn btn-danger" style="background-color:#da2213;color:white;" data-dismiss="modal" aria-hidden="true">No</button>&nbsp&nbsp<a href="@Url.Action("Delete", "Trabajadores")/' + $(this).data('id') + '" class="btn btn-default">Si</a>';
         $("#response").html(htmlContent);
         $('#Anular').modal('show');
         });
@@ -160,4 +194,27 @@
             }
         });</script>
 
+    <script>
+        function onchangeDepartamento() {
+            let idDepartamento = $("#comboDepartamento").val();
+            CargarProvincia(idDepartamento);
+        }
+
+        function CargarProvincia(idDepartamento) {
+            fetchGet("/Provincias/CargarProvincias/?id=" + idDepartamento, function (data) {
+                llenarCombo(data, "comboProvincia", "nombreProvincia", "id", "0");
+            });
+        }
+
+        function onchangeProvincia() {
+            let idProvincia = $("#comboProvincia").val();
+            CargarDistritos(idProvincia);
+        }
+
+        function CargarDistritos(idProvincia) {
+            fetchGet("/Distritos/CargarDistritos/?id=" + idProvincia, function (data) {
+                llenarCombo(data, "comboDistrito", "nombreDistrito", "id", "0");
+            });
+        }
+    </script>
 }

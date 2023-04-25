@@ -1,16 +1,16 @@
-﻿@model IEnumerable<TrabajadoresFinish.Models.Provincia>
+﻿@model IEnumerable<TrabajadoresFinish.Models.Distrito>
 @{
-    var Departamento = (TrabajadoresFinish.Models.Departamento)ViewBag.Departamento;
+    var Provincia = (TrabajadoresFinish.Models.Provincia)ViewBag.Provincia;
 
 }
 
 <div class="mail-box">
 
-    <h2>Provincias</h2>
-    <h4>Departamento: @Departamento.NombreDepartamento</h4>
+    <h2>Distrito</h2>
+    <h4>Provincia: @Provincia.NombreProvincia</h4>
 
     <p>
-        <a asp-action="Create" asp-route-IdDepartamento="@Departamento.Id" class="btn btn-primary add-dialog-window">Nuevo Registro</a>
+        <a asp-action="Create" asp-route-IdProvincia="@Provincia.Id" class="btn btn-primary add-dialog-window">Nuevo Registro</a>
     </p>
     <div class="table-responsive table-sm table-hover">
 
@@ -28,18 +28,17 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NombreProvincia)
+                            @Html.DisplayFor(modelItem => item.NombreDistrito)
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning edit-dialog-window">Editar</a>
                             <a data-id="@item.Id" class="btn btn-danger delete-dialog-window">Eliminar</a>
-                            <a asp-controller="Distritos" asp-action="Index" asp-route-id="@item.Id" class="btn btn-info">Distritos</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <a asp-controller="Departamentos" asp-action="Index"  class="btn btn-dark">Regresar a lista</a>
+        <a asp-controller="Provincias" asp-action="Index" asp-route-Id="@Provincia.IdDepartamento" class="btn btn-dark">Regresar a lista</a>
 
     </div>
 </div>
@@ -139,7 +138,7 @@
 
     <script>
         $("body").on("click", "a.delete-dialog-window", null, function (e) {
-        var htmlContent = '<br /><button type="button" id="btnNo" class="btn btn-danger" style="background-color:#da2213;color:white;" data-dismiss="modal" aria-hidden="true">No</button>&nbsp&nbsp<a href="@Url.Action("Delete", "Provincias")/' + $(this).data('id') + '" class="btn btn-default">Si</a>';
+        var htmlContent = '<br /><button type="button" id="btnNo" class="btn btn-danger" style="background-color:#da2213;color:white;" data-dismiss="modal" aria-hidden="true">No</button>&nbsp&nbsp<a href="@Url.Action("Delete", "Distritos")/' + $(this).data('id') + '" class="btn btn-default">Si</a>';
         $("#response").html(htmlContent);
         $('#Anular').modal('show');
         });

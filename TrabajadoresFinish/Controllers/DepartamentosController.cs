@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TrabajadoresFinish.Data;
 using TrabajadoresFinish.Models;
 
@@ -13,6 +14,13 @@ namespace TrabajadoresFinish.Controllers
             _context = dataContext;
         }
 
+
+        [HttpGet]
+        public async Task<JsonResult> CargarDepartamento()
+        {
+            var listDepartamento = await _context.Departamento.ToListAsync();
+            return Json(listDepartamento);
+        }
 
         public IActionResult Index()
         {

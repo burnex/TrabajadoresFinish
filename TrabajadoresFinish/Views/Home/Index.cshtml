@@ -2,8 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Departamentos</h5>
+                <p class="card-text">Mantenimiento de Departamentos, Provincias y Distritos</p>
+                <a asp-controller="Departamentos" asp-action="Index" class="btn btn-primary">Ingresar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Trabajadores</h5>
+                <p class="card-text">Mantenimiento de Trabajadores</p>
+                <a asp-controller="Trabajadores" asp-action="Index" class="btn btn-primary">Ingresar</a>
+            </div>
+        </div>
+    </div>
 </div>
-

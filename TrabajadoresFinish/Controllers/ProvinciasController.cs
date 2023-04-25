@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TrabajadoresFinish.Data;
 using TrabajadoresFinish.Models;
 
@@ -26,9 +27,16 @@ namespace TrabajadoresFinish.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create(int id)
+        public async Task<JsonResult> CargarProvincias(int id)
         {
-            return PartialView(new Provincia { IdDepartamento = id });
+            var listado = await _context.Provincia.Where(t=>t.IdDepartamento.Equals(id)).ToListAsync();
+            return Json(listado);
+        }
+
+        [HttpGet]
+        public IActionResult Create(int IdDepartamento)
+        {
+            return PartialView(new Provincia { IdDepartamento = IdDepartamento });
         }
 
         [HttpPost]
@@ -36,14 +44,14 @@ namespace TrabajadoresFinish.Controllers
         {
             await _context.AddAsync(model);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { id = model.IdDepartamento });
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = await _context.Departamento.FindAsync(id);
+            var model = await _context.Provincia.FindAsync(id);
             return PartialView(model);
         }
 
@@ -54,20 +62,22 @@ namespace TrabajadoresFinish.Controllers
             modelOld!.NombreProvincia = model.NombreProvincia;
             _context.Update(modelOld);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { id = model.IdDepartamento });
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            int idDepartamento = 0;
             var model = await _context.Provincia.FindAsync(id);
             if (model != null)
             {
+                idDepartamento = model.IdDepartamento;
                 _context.Remove(model);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { id = idDepartamento });
         }
     }
 }
