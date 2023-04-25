@@ -17,8 +17,10 @@ namespace TrabajadoresFinish.Controllers
 
         public IActionResult Index()
         {
+            var PR_Trabajadores_Q01s = _context.PR_Trabajadores_Q01.FromSqlRaw("PR_Trabajadores_Q01").ToList();
+
             var listado = _context.Trabajadores.ToList();
-            return View(listado);
+            return View(PR_Trabajadores_Q01s);
         }
 
 
@@ -59,6 +61,10 @@ namespace TrabajadoresFinish.Controllers
 
             var Departamentos = await _context.Departamento.ToListAsync();
             ViewData["IdDepartamento"] = new SelectList(Departamentos, "Id", "NombreDepartamento", model.IdDepartamento);
+            var Provincias = await _context.Provincia.Where(t=>t.IdDepartamento.Equals(model.IdDepartamento)).ToListAsync();
+            ViewData["IdProvincia"] = new SelectList(Provincias, "Id", "NombreProvincia", model.IdProvincia);
+            var Distritos = await _context.Distrito.Where(t=>t.IdProvincia.Equals(model.IdProvincia)).ToListAsync();
+            ViewData["IdDistrito"] = new SelectList(Distritos, "Id", "NombreDistrito", model.IdDistrito);
 
             return PartialView(model);
         }

@@ -2,7 +2,7 @@
 
 namespace TrabajadoresFinish.Models
 {
-    public class Trabajadores
+    public class PR_Trabajadores_Q01
     {
         public int Id { get; set; }
         [DisplayName("Tipo Documento")]
@@ -17,15 +17,22 @@ namespace TrabajadoresFinish.Models
         [DisplayName("Sexo")]
 
         public string Sexo { get; set; } = string.Empty;
+        public string SexoDescripcion { get; set; } = string.Empty;
+
+        
         [DisplayName("Departamento")]
 
         public int IdDepartamento { get; set; }
+        public string NombreDepartamento { get; set; } = string.Empty;
         [DisplayName("Provincia")]
 
         public int IdProvincia { get; set; }
+        public string NombreProvincia { get; set; } = string.Empty;
         [DisplayName("Distrito")]
 
         public int IdDistrito { get; set; }
+        public string NombreDistrito { get; set; } = string.Empty;
+
+        public string classSTR => Sexo.Equals("M") ? "primary" : "danger";
     }
 }
-

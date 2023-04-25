@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrabajadoresFinish.Models.Trabajadores>
+﻿@model IEnumerable<TrabajadoresFinish.Models.PR_Trabajadores_Q01>
 @{
 
 }
@@ -28,6 +28,9 @@
                         Sexo
                     </th>
                     <th>
+                        
+                    </th>
+                    <th>
                         Departamento
                     </th>
                     <th>
@@ -54,16 +57,21 @@
                             @Html.DisplayFor(modelItem => item.Nombres)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Sexo)
+                            @Html.DisplayFor(modelItem => item.SexoDescripcion)
+
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdDepartamento)
+                            <i class="bi bi-circle-fill text-@item.classSTR"></i>
+
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdProvincia)
+                            @Html.DisplayFor(modelItem => item.NombreDepartamento)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdDistrito)
+                            @Html.DisplayFor(modelItem => item.NombreProvincia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreDistrito)
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning edit-dialog-window">Editar</a>

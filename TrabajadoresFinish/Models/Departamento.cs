@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TrabajadoresFinish.Models
 {
@@ -6,6 +7,7 @@ namespace TrabajadoresFinish.Models
     {
         public int Id { get; set; }
         [Required]
+        [DisplayName("Departamento")]
         public string NombreDepartamento { get; set; } = string.Empty;
     }
 }

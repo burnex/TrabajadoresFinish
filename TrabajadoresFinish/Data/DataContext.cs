@@ -14,6 +14,7 @@ namespace TrabajadoresFinish.Data
         public DbSet<Provincia> Provincia { get; set; }
         public DbSet<Distrito> Distrito { get; set; }
         public DbSet<Trabajadores> Trabajadores { get; set; }
+        public DbSet<PR_Trabajadores_Q01> PR_Trabajadores_Q01 { get; set; }
     }
 }
 
